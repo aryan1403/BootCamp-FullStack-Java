@@ -34,7 +34,7 @@ public class loopsExample {
 
         // Triangle
 
-        for (int i = 0; i < 10; i++) {
+        /* for (int i = 0; i < 10; i++) {
             for (int j = 10 - i; j > 1; j--) {
                 System.out.print(" ");
             }
@@ -42,7 +42,23 @@ public class loopsExample {
                 System.out.print("* ");
             }
             System.out.println();
+        } */
+
+        // Principle : condition - execution - update statement
+        int i = 0;
+        while(i < 10) {
+            System.out.println(i);
+            i++;
         }
+
+        // Principle : execution - condition - update statement 
+        // true ? run : 1 time
+        int j = 0;
+        do {
+            // block
+            System.out.println(j);
+            j++;
+        } while(j > 10);
 
     }
 }
