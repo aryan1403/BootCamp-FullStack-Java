@@ -1,0 +1,84 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ExceptionHandling",
+      "request": "launch",
+      "mainClass": "Day5.ExceptionHandling",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Break",
+      "request": "launch",
+      "mainClass": "Day5.Break",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Diamond",
+      "request": "launch",
+      "mainClass": "Day5.Diamond",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Child",
+      "request": "launch",
+      "mainClass": "Child",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Constructor",
+      "request": "launch",
+      "mainClass": "Constructor",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Conditions",
+      "request": "launch",
+      "mainClass": "Day5.Conditions",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "NestedLoops",
+      "request": "launch",
+      "mainClass": "Day5.NestedLoops",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Dog",
+      "request": "launch",
+      "mainClass": "Dog",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "Polymorphism",
+      "request": "launch",
+      "mainClass": "Polymorphism",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    },
+    {
+      "type": "java",
+      "name": "TestCustomer",
+      "request": "launch",
+      "mainClass": "TestCustomer",
+      "projectName": "BootCamp-FullStack-Java_dfc56b62"
+    }
+  ]
+}
