@@ -19,7 +19,7 @@ public class ConverterApp {
         MileToKmConverter converter = new MileToKmConverter();
 
         try {
-            double miles = 7;
+            double miles = -7;
             double kilometers = converter.convert(miles);
             System.out.println(miles + " miles = " + kilometers + " kilometers");
         } catch (CustomException e) {
