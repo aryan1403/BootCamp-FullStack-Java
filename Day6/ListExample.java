@@ -3,6 +3,18 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+class Emp {
+    String name;
+    double salary;
+    double exp;
+
+    public Emp(String name, double salary, double exp) {
+        this.name = name;
+        this.salary = salary;
+        this.exp = exp;
+    }   
+}
 public class ListExample {
     public static void main(String[] args) {
         // no size
@@ -55,5 +67,14 @@ public class ListExample {
 
         // 6. advance print line (shortest)
         list.forEach(System.out::println);
+
+        List<Emp> l = new ArrayList<>();
+
+        l.add(new Emp("Aaryan", 100000, 12.5));
+        l.add(new Emp("Sushil", 500000, 17.5));
+        l.add(new Emp("Jaya", 800000, 18));
+
+        l.forEach(emp -> System.out.println("Name : " + emp.name + ", Salary : " + emp.salary + ", Exp : " + emp.exp));
+
     }
 }
