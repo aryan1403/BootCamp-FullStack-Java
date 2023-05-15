@@ -77,7 +77,7 @@ public class InteractiveListProgram {
     private static void updateList(List<Emp> empList, Scanner scanner) {
         System.out.print("Enter the index number of the employee you want to update: ");
         int index = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
+        scanner.nextLine();
         if (index >= 0 && index < empList.size()) {
             Emp emp = empList.get(index);
             System.out.print("Enter new name: ");
