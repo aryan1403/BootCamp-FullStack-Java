@@ -1,10 +1,11 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class streamExample {
 
     class Emp {
+        String id;
         String name;
         double salary;
         double exp;
@@ -56,5 +57,6 @@ public class streamExample {
             return 0;
         });
 
+        System.out.println(UUID.randomUUID());
     }
 }
