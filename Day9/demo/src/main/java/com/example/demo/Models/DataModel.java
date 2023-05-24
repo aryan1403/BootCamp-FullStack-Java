@@ -10,5 +10,5 @@ import lombok.Setter;
 public class DataModel {
     int code;
     String msg;
-    EmpModel data;
+    Object data;
 }

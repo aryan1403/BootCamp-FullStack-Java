@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,5 +33,16 @@ public class demoController {
     public DataModel AddEmp(@RequestBody EmpModel eModel) {
         eModel = eRepo.save(eModel);
         return new DataModel(200, "Employee Added Successfully", eModel);
+    }
+
+    @GetMapping("/getEmp")
+    public DataModel GetAllEmp() {
+        return new DataModel(200, "Employee Fetched Successfully", eRepo.findAll());
+    }
+
+    @DeleteMapping
+    public DataModel DeleteEmp(@RequestBody EmpModel model) {
+        eRepo.delete(model);
+        return null;
     }
 }
