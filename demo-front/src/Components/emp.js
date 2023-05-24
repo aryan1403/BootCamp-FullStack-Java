@@ -8,6 +8,7 @@ export default function Emp(props) {
         <div className="card-body">
             <h5 className="card-title">{props.empName}</h5>
             <p className="card-text">{props.empDesc}</p>
+            <a href="/" className="btn btn-success">Edit</a>
             <a href="/" className="btn btn-danger">Delete</a>
         </div>
         </div>

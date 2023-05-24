@@ -45,4 +45,10 @@ public class demoController {
         eRepo.delete(model);
         return null;
     }
+
+    @PostMapping
+    public DataModel UpdateEmp(@RequestBody EmpModel model) {
+        eRepo.save(model); // update
+        return null;
+    }
 }
