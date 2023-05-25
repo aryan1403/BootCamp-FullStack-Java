@@ -8,6 +8,7 @@ export default function DisplayEmp() {
   
   useEffect(() => {
     getAllEmp().then((data) => {
+      console.log(data);
       setemps(data);
     });
   }, []);
@@ -16,8 +17,7 @@ export default function DisplayEmp() {
     <>
     {
         <div className="row">
-
-            {emps.map(emp => {return <Emp empName={emp.name} empDesc={emp.role}></Emp>})}
+            {emps.map(emp => {return <Emp empId={emp._id} empName={emp.name} empDesc={emp.role} empSalary={emp.salary} empExp={emp.exp}></Emp>})}
         </div>
     }
     </>
