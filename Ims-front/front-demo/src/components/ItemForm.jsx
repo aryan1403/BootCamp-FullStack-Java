@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function ItemForm() {
+function ItemForm({ onItemAdded }) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -21,6 +21,7 @@ function ItemForm() {
       setName("");
       setPrice("");
       setQuantity("");
+      onItemAdded(); // Invoke the callback to fetch the updated item list
     } catch (error) {
       console.log(error);
     }

@@ -9,7 +9,7 @@ function ItemList() {
     id: "",
     name: "",
     price: "",
-    quantity: ""
+    quantity: "",
   });
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function ItemList() {
       id: "",
       name: "",
       price: "",
-      quantity: ""
+      quantity: "",
     });
   };
 
@@ -53,13 +53,16 @@ function ItemList() {
     const { name, value } = e.target;
     setEditItemData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const saveEditItem = async () => {
     try {
-      await axios.put(`http://localhost:8080/items/${editItemId}`, editItemData);
+      await axios.put(
+        `http://localhost:8080/items/${editItemId}`,
+        editItemData
+      );
       fetchItems();
       closeEditModal();
     } catch (error) {
@@ -97,7 +100,6 @@ function ItemList() {
         ))}
       </tbody>
 
-      {/* Edit Modal */}
       {editItemId !== null && (
         <div className="edit-modal">
           <div className="edit-modal-content">
@@ -125,24 +127,22 @@ function ItemList() {
             />
             <label>Quantity:</label>
             <input
-                          type="text"
-                          name="quantity"
-                          value={editItemData.quantity}
-                          onChange={handleEditItemChange}
-                        />
-                        <button type="button" onClick={saveEditItem}>
-                          Save
-                        </button>
-                        <button type="button" onClick={closeEditModal}>
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </table>
-              );
-            }
-            
-            export default ItemList;
-            
-             
+              type="text"
+              name="quantity"
+              value={editItemData.quantity}
+              onChange={handleEditItemChange}
+            />
+            <button type="button" onClick={saveEditItem}>
+              Save
+            </button>
+            <button type="button" onClick={closeEditModal}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+    </table>
+  );
+}
+
+export default ItemList;
