@@ -1,0 +1,23 @@
+.testBdiv {
+    margin-top: 50px;
+}
+
+#empform {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dimage {
+    width: 200px;
+    height: 200px;
+}
+
+.form-label {
+}
+
+.form-control {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}

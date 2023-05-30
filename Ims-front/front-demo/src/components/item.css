@@ -1,0 +1,21 @@
+.item-table {
+    background-color: white;
+    color: black;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .item-table th,
+  .item-table td {
+    border: 1px solid green;
+    padding: 8px;
+  }
+  
+  .item-table th {
+    text-align: left;
+  }
+  
+  .item-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
