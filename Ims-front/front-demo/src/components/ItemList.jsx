@@ -11,10 +11,11 @@ function ItemList() {
     price: "",
     quantity: "",
   });
+  const [shouldUpdateItems] = useState(false);
 
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [shouldUpdateItems]);
 
   const fetchItems = async () => {
     try {
