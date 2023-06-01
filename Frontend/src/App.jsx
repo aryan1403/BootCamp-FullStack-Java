@@ -4,6 +4,7 @@ import ItemForm from "./components/ItemForm";
 import Navbar from "./components/NavBar";
 import Dashboard from "./components/Dashboard";
 // import ItemList from "./components/ItemList";
+import Home from "./components/Home";
 import Stock from "./components/Stock"; // Import the Stock component
 
 function App() {
@@ -18,7 +19,6 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<React.Fragment />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route
             path="/inventory"
@@ -29,6 +29,7 @@ function App() {
               />
             }
           />
+          <Route path="/" element={<Home />} />
           <Route path="/stock" element={<Stock />} />{" "}
           {/* Associate /stock route with the Stock component */}
         </Routes>

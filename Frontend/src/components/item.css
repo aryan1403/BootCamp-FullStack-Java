@@ -57,3 +57,20 @@
   padding: 2px;
   margin: 2px;
 }
+
+.container {
+  postion: relative;
+}
+.image {
+  background-image: url("https://uploads-ssl.webflow.com/611b82111c177de53409c4b5/61279f2e0c2bf63f579dfbb4_inventory-management-p-1080.png");
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opcaity: 0;
+
+  background-size: cover;
+  background-position: center;
+}

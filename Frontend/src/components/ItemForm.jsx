@@ -6,6 +6,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [type, setType] = useState("");
   const [quantity, setQuantity] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [items, setItems] = useState([]);
@@ -14,6 +15,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
     id: "",
     name: "",
     price: "",
+    type: "",
     quantity: "",
   });
 
@@ -40,6 +42,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
       id: id,
       name: name,
       price: price,
+      type: type,
       quantity: quantity,
     };
 
@@ -48,6 +51,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
       setId("");
       setName("");
       setPrice("");
+      setType("");
       setQuantity("");
       setErrorMessage("");
       onItemAdded();
@@ -99,6 +103,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
       id: "",
       name: "",
       price: "",
+      type: "",
       quantity: "",
     });
   };
@@ -109,6 +114,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
       id: "",
       name: "",
       price: "",
+      type: "",
       quantity: "",
     });
   };
@@ -126,6 +132,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
               <th>ID</th>
               <th>Name</th>
               <th>Price</th>
+              <th>Type</th>
               <th>Quantity</th>
               <th>Action</th>
             </tr>
@@ -136,6 +143,7 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
                 <td>{item.id}</td>
                 <td>{item.name}</td>
                 <td>{item.price}</td>
+                <td>{item.type}</td>
                 <td>{item.quantity}</td>
                 <td>
                   <button type="button" onClick={() => deleteItem(item.id)}>
@@ -173,6 +181,13 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
                 type="text"
                 name="price"
                 value={editItemData.price}
+                onChange={handleEditItemChange}
+              />
+              <label>Type:</label>
+              <input
+                type="text"
+                name="type"
+                value={editItemData.type}
                 onChange={handleEditItemChange}
               />
               <label>Quantity:</label>
@@ -221,6 +236,14 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
             type="text"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+        <div className="form-row">
+          <label>Type:</label>
+          <input
+            type="text"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
           />
         </div>
         <div className="form-row">

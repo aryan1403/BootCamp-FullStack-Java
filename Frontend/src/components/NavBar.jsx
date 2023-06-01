@@ -22,9 +22,25 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container-fluid">
-        <Link className="navbar-brand text-white" to="/">
-          Inventory Management System
+      <div className="container">
+        <Link
+          className="navbar-brand d-flex align-items-center text-white"
+          to="/"
+        >
+          <div
+            className="rounded-circle overflow-hidden me-2"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <img
+              src="https://th.bing.com/th/id/OIP.vjUPZjUMWLO_0wF71LTd7AHaHT?pid=ImgDet&rs=1"
+              className="w-100 h-auto"
+              alt="Flowbite Logo"
+            />
+          </div>
+          <span className="font-weight-bold">
+            {" "}
+            Takeo Inventory Management System
+          </span>
         </Link>
         <button
           className="navbar-toggler"
@@ -82,6 +98,9 @@ function Navbar() {
               value={searchQuery}
               onChange={handleSearchChange}
             />
+            <button type="button" className="btn btn-primary">
+              Notifications <span className="badge badge-dark">4</span>
+            </button>
             <button className="btn btn-outline-light" type="submit">
               Search
             </button>

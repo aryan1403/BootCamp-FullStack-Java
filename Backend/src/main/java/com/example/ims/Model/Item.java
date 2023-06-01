@@ -5,15 +5,17 @@ public class Item {
     private String id;
     private String name;
     private double price;
+    private String type;
     private int quantity;
 
     public Item() {
     }
 
-    public Item(String id, String name, double price, int quantity) {
+    public Item(String id, String name, double price, String type, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.type = type;
         this.quantity = quantity;
     }
 
@@ -41,6 +43,14 @@ public class Item {
         this.price = price;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -48,6 +58,8 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    
 
     
     
