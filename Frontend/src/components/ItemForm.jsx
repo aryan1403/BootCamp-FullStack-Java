@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./item.css";
+import Navbar from "./NavBar";
 
 function ItemForm({ onItemAdded, setShouldUpdateItems }) {
   const [id, setId] = useState("");
@@ -211,57 +212,60 @@ function ItemForm({ onItemAdded, setShouldUpdateItems }) {
   };
 
   return (
-    <div className="container-1">
-      <h2>Add a new Item</h2>
-      <form className="form-container">
-        <div className="form-row">
-          <label>ID:</label>
-          <input
-            type="text"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </div>
-        <div className="form-row">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="form-row">
-          <label>Price:</label>
-          <input
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div className="form-row">
-          <label>Type:</label>
-          <input
-            type="text"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          />
-        </div>
-        <div className="form-row">
-          <label>Quantity:</label>
-          <input
-            type="text"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-        </div>
-        <button type="button" onClick={addItem}>
-          Add Item
-        </button>
-        {errorMessage && <p>{errorMessage}</p>}
-      </form>
+    <>
+      <Navbar />
+      <div className="container-1">
+        <h2>Add a new Item</h2>
+        <form className="form-container">
+          <div className="form-row">
+            <label>ID:</label>
+            <input
+              type="text"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <label>Price:</label>
+            <input
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <label>Type:</label>
+            <input
+              type="text"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <label>Quantity:</label>
+            <input
+              type="text"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+          </div>
+          <button type="button" onClick={addItem}>
+            Add Item
+          </button>
+          {errorMessage && <p>{errorMessage}</p>}
+        </form>
 
-      {renderItemsTable()}
-    </div>
+        {renderItemsTable()}
+      </div>
+    </>
   );
 }
 

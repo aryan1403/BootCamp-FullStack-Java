@@ -5,6 +5,7 @@ import Navbar from "./components/NavBar";
 import Dashboard from "./components/Dashboard";
 // import ItemList from "./components/ItemList";
 import Home from "./components/Home";
+import Hello from "./components/Home2";
 import Stock from "./components/Stock"; // Import the Stock component
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar />
+        <Routes>
+          <Route path="/" element={<Hello />} />
+        </Routes>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route
@@ -29,7 +32,7 @@ function App() {
               />
             }
           />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/stock" element={<Stock />} />{" "}
           {/* Associate /stock route with the Stock component */}
         </Routes>

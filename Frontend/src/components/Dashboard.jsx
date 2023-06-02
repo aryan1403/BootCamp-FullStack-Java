@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import Navbar from "./NavBar";
 
 function Dashboard() {
   const location = useLocation();
@@ -85,14 +86,17 @@ function Dashboard() {
 
   return (
     <div>
-      {location.pathname === "/dashboard" && (
-        <div>
-          <h1>Price Chart</h1>
-          <canvas ref={priceChartRef} width={400} height={400}></canvas>
-          <h1>Quantity Chart</h1>
-          <canvas ref={quantityChartRef} width={400} height={400}></canvas>
-        </div>
-      )}
+      <Navbar />
+      <div>
+        {location.pathname === "/dashboard" && (
+          <div>
+            <h1>Price Chart</h1>
+            <canvas ref={priceChartRef} width={400} height={400}></canvas>
+            <h1>Quantity Chart</h1>
+            <canvas ref={quantityChartRef} width={400} height={400}></canvas>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
