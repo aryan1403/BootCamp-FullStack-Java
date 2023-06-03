@@ -17,7 +17,7 @@ function Navbar() {
       <div className="container">
         <Link
           className="navbar-brand d-flex align-items-center text-white"
-          to="/"
+          to="/inventory"
         >
           <div
             className="rounded-circle overflow-hidden me-2"
