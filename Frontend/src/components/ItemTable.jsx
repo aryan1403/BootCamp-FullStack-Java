@@ -10,6 +10,8 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
     type: "",
     quantity: "",
   });
+  const [dispatchItemId, setDispatchItemId] = useState(null); // Track the ID of the item to be dispatched
+  const [dispatchQuantity, setDispatchQuantity] = useState(""); // Track the quantity to be dispatched
 
   const [sortColumn, setSortColumn] = useState({
     column: null,
@@ -94,6 +96,33 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
     return null;
   };
 
+  const handleDispatchItem = (itemId) => {
+    setDispatchItemId(itemId);
+    setDispatchQuantity(""); // Reset dispatch quantity
+  };
+
+  const handleDispatchQuantityChange = (e) => {
+    setDispatchQuantity(e.target.value);
+  };
+
+  const dispatchItem = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/items/${dispatchItemId}/dispatch`,
+        { dispatchQuantity }
+      );
+      console.log("Item dispatched:", response.data);
+      setDispatchItemId(null);
+      setDispatchQuantity("");
+      onItemUpdated(); // Notify parent component that item has been updated
+    } catch (error) {
+      console.log("Dispatch error:", error);
+      console.log("Response data:", error.response.data);
+      console.log("Response status:", error.response.status);
+      console.log("Response headers:", error.response.headers);
+    }
+  };
+
   const sortedItems = [...items]; // Create a copy of items array for sorting
 
   if (sortColumn.column === "price") {
@@ -158,6 +187,12 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
                     Edit
                   </button>
                 )}
+                <button
+                  type="button"
+                  onClick={() => handleDispatchItem(item.id)}
+                >
+                  Dispatch
+                </button>
               </td>
             </tr>
           ))}
@@ -207,19 +242,35 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
               value={editItemData.quantity}
               onChange={handleEditItemChange}
             />
-            <label>Quantity:</label>
-            <input
-              type="text"
-              name="quantity"
-              value={editItemData.quantity}
-              onChange={handleEditItemChange}
-            />
           </div>
           <div className="edit-buttons">
             <button type="button" onClick={saveEditItem}>
               Save
             </button>
             <button type="button" onClick={cancelEditItem}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {dispatchItemId !== null && (
+        <div className="dispatch-modal">
+          <div className="dispatch-modal-content">
+            <h2>Dispatch Item</h2>
+            <label>Quantity:</label>
+            <input
+              type="text"
+              name="quantity"
+              value={dispatchQuantity}
+              onChange={handleDispatchQuantityChange}
+            />
+          </div>
+          <div className="dispatch-buttons">
+            <button type="button" onClick={dispatchItem}>
+              Dispatch
+            </button>
+            <button type="button" onClick={() => setDispatchItemId(null)}>
               Cancel
             </button>
           </div>
