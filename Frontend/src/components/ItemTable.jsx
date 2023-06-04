@@ -10,9 +10,8 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
     type: "",
     quantity: "",
   });
-  const [dispatchItemId, setDispatchItemId] = useState(null); // Track the ID of the item to be dispatched
-  const [dispatchQuantity, setDispatchQuantity] = useState(""); // Track the quantity to be dispatched
-
+  const [dispatchItemId, setDispatchItemId] = useState(null);
+  const [dispatchQuantity, setDispatchQuantity] = useState("");
   const [sortColumn, setSortColumn] = useState({
     column: null,
     order: "normal",
@@ -66,7 +65,6 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
 
   const handleSortColumn = (columnName) => {
     if (sortColumn.column === columnName) {
-      // If same column clicked again, toggle sort order
       setSortColumn((prevSortColumn) => ({
         column: prevSortColumn.column,
         order:
@@ -77,7 +75,6 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
             : "ascending",
       }));
     } else {
-      // If different column clicked, set it as the new sort column in ascending order
       setSortColumn({
         column: columnName,
         order: "ascending",
@@ -98,7 +95,7 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
 
   const handleDispatchItem = (itemId) => {
     setDispatchItemId(itemId);
-    setDispatchQuantity(""); // Reset dispatch quantity
+    setDispatchQuantity("");
   };
 
   const handleDispatchQuantityChange = (e) => {
@@ -123,30 +120,29 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
     }
   };
 
-  const sortedItems = [...items]; // Create a copy of items array for sorting
-
-  if (sortColumn.column === "price") {
-    sortedItems.sort((a, b) => {
+  const sortedItems = items.sort((a, b) => {
+    if (sortColumn.column === "price") {
+      const priceA = parseFloat(a.price);
+      const priceB = parseFloat(b.price);
       if (sortColumn.order === "ascending") {
-        return a.price - b.price;
+        return priceA - priceB;
       } else if (sortColumn.order === "descending") {
-        return b.price - a.price;
+        return priceB - priceA;
       }
-      return 0;
-    });
-  } else if (sortColumn.column === "quantity") {
-    sortedItems.sort((a, b) => {
+    } else if (sortColumn.column === "quantity") {
+      const quantityA = parseInt(a.quantity);
+      const quantityB = parseInt(b.quantity);
       if (sortColumn.order === "ascending") {
-        return a.quantity - b.quantity;
+        return quantityA - quantityB;
       } else if (sortColumn.order === "descending") {
-        return b.quantity - a.quantity;
+        return quantityB - quantityA;
       }
-      return 0;
-    });
-  }
+    }
+    return 0;
+  });
 
   return (
-    <>
+    <div>
       <table className="item-table">
         <thead>
           <tr>
@@ -198,85 +194,100 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
           ))}
         </tbody>
       </table>
-      {editItemId !== null && (
-        <div className="edit-modal">
-          <div className="edit-modal-content">
-            <h2>Edit Item</h2>
-            <label>ID:</label>
+
+      {editItemId && (
+        <div className="edit-item-form">
+          <h3>Edit Item</h3>
+          <form>
+            <label htmlFor="edit-name">Name:</label>
             <input
               type="text"
-              name="id"
-              value={editItemData.id}
-              onChange={handleEditItemChange}
-            />
-            <label>Name:</label>
-            <input
-              type="text"
+              id="edit-name"
               name="name"
               value={editItemData.name}
               onChange={handleEditItemChange}
             />
-            <label>Price:</label>
+
+            <label htmlFor="edit-type">Type:</label>
             <input
               type="text"
+              id="edit-type"
+              name="type"
+              value={editItemData.type}
+              onChange={handleEditItemChange}
+            />
+
+            <label htmlFor="edit-price">Price:</label>
+            <input
+              type="number"
+              id="edit-price"
               name="price"
               value={editItemData.price}
               onChange={handleEditItemChange}
             />
-            <label>Type:</label>
-            <select
-              name="type"
-              value={editItemData.type}
-              onChange={handleEditItemChange}
-            >
-              <option value="">Select a type</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-            </select>
-            <label>Quantity:</label>
+
+            <label htmlFor="edit-quantity">Quantity:</label>
             <input
-              type="text"
+              type="number"
+              id="edit-quantity"
               name="quantity"
               value={editItemData.quantity}
               onChange={handleEditItemChange}
             />
-          </div>
-          <div className="edit-buttons">
+
             <button type="button" onClick={saveEditItem}>
               Save
             </button>
             <button type="button" onClick={cancelEditItem}>
               Cancel
             </button>
-          </div>
+          </form>
         </div>
       )}
 
-      {dispatchItemId !== null && (
-        <div className="dispatch-modal">
-          <div className="dispatch-modal-content">
-            <h2>Dispatch Item</h2>
-            <label>Quantity:</label>
+      {dispatchItemId && (
+        <div className="dispatch-item-form">
+          <h3>Dispatch Item</h3>
+          <form>
+            <label htmlFor="dispatch-quantity">Dispatch Quantity:</label>
             <input
-              type="text"
-              name="quantity"
+              type="number"
+              id="dispatch-quantity"
+              name="dispatchQuantity"
               value={dispatchQuantity}
               onChange={handleDispatchQuantityChange}
             />
-          </div>
-          <div className="dispatch-buttons">
+
             <button type="button" onClick={dispatchItem}>
               Dispatch
             </button>
-            <button type="button" onClick={() => setDispatchItemId(null)}>
-              Cancel
-            </button>
-          </div>
+          </form>
         </div>
       )}
-    </>
+
+      <table className="additional-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Order Number</th>
+            <th>Dispatch Quantity</th>
+            <th>Sale Generated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedItems.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.orderNumber}</td>
+              <td>{item.dispatchQuantity}</td>
+              <td>{item.saleGenerated}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
