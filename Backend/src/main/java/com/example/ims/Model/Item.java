@@ -7,16 +7,47 @@ public class Item {
     private double price;
     private String type;
     private int quantity;
+    private int dispatchQuantity;
+    private String OrderNumber;
+
+
+    
 
     public Item() {
     }
 
-    public Item(String id, String name, double price, String type, int quantity) {
+    public Item(String id, String name, double price, String type, int quantity, int dispatchQuantity, double saleGenerated, String OrderNumber) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.type = type;
         this.quantity = quantity;
+    }
+    public String getOrderNumber() {
+        return OrderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        OrderNumber = orderNumber;
+    }
+
+    private double saleGenerated;
+
+
+    public int getDispatchQuantity() {
+        return dispatchQuantity;
+    }
+
+   public double getSaleGenerated() {
+    return saleGenerated;
+}
+
+public void setSaleGenerated(double saleGenerated) {
+    this.saleGenerated = saleGenerated;
+}
+
+ public void setDispatchQuantity(int dispatchQuantity) {
+        this.dispatchQuantity = dispatchQuantity;
     }
 
     public String getId() {

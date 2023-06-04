@@ -34,4 +34,14 @@ public class InventoryService {
     public void deleteItem(String id) {
         repository.deleteById(id);
     }
+
+    public void updateItemAndDispatchQuantity(Item item, int dispatchQuantity) {
+        // Update the item's quantity and dispatch quantity
+        int updatedQuantity = item.getQuantity() - dispatchQuantity;
+        item.setQuantity(updatedQuantity);
+        item.setDispatchQuantity(dispatchQuantity);
+
+        // Save the updated item to the database
+        repository.save(item);
+    }
 }
