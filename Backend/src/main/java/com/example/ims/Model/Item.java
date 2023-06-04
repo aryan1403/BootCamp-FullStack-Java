@@ -1,6 +1,5 @@
 package com.example.ims.Model;
 
-
 public class Item {
     private String id;
     private String name;
@@ -9,9 +8,7 @@ public class Item {
     private int quantity;
     private int dispatchQuantity;
     private String OrderNumber;
-
-
-    
+    private double saleGenerated;
 
     public Item() {
     }
@@ -22,32 +19,9 @@ public class Item {
         this.price = price;
         this.type = type;
         this.quantity = quantity;
-    }
-    public String getOrderNumber() {
-        return OrderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        OrderNumber = orderNumber;
-    }
-
-    private double saleGenerated;
-
-
-    public int getDispatchQuantity() {
-        return dispatchQuantity;
-    }
-
-   public double getSaleGenerated() {
-    return saleGenerated;
-}
-
-public void setSaleGenerated(double saleGenerated) {
-    this.saleGenerated = saleGenerated;
-}
-
- public void setDispatchQuantity(int dispatchQuantity) {
         this.dispatchQuantity = dispatchQuantity;
+        this.saleGenerated = saleGenerated;
+        this.OrderNumber = OrderNumber;
     }
 
     public String getId() {
@@ -90,9 +64,27 @@ public void setSaleGenerated(double saleGenerated) {
         this.quantity = quantity;
     }
 
-    
+    public int getDispatchQuantity() {
+        return dispatchQuantity;
+    }
 
-    
-    
+    public void setDispatchQuantity(int dispatchQuantity) {
+        this.dispatchQuantity = dispatchQuantity;
+    }
+
+    public String getOrderNumber() {
+        return OrderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        OrderNumber = orderNumber;
+    }
+
+    public double getSaleGenerated() {
+        return saleGenerated;
+    }
+
+    public void setSaleGenerated(double saleGenerated) {
+        this.saleGenerated = saleGenerated;
+    }
 }
-
