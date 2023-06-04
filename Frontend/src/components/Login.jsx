@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "./item.css";
+import { useNavigate } from "react-router-dom";
 
-function Hello() {
+function Hello({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -16,33 +17,8 @@ function Hello() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Prepare the login request payload
-    const loginRequest = {
-      username: username,
-      password: password,
-    };
-
-    // Make a POST request to the backend API
-    fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginRequest),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        // Handle the login response
-        console.log(data);
-
-        // Check if login is successful and redirect to home page
-        if (data === "Login successful") {
-          window.location.href = "/home";
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // Call the onLogin function with the entered username and password
+    onLogin(username, password, navigate);
   };
 
   return (

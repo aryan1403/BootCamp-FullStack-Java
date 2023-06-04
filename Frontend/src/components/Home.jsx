@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./item.css";
 import Navbar from "./NavBar";
 
-function Hello() {
+function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,4 +51,4 @@ function Hello() {
   );
 }
 
-export default Hello;
+export default Home;

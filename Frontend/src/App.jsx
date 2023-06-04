@@ -1,42 +1,57 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import ItemForm from "./components/ItemForm";
-
 import Dashboard from "./components/Dashboard";
-// import ItemList from "./components/ItemList";
 import Home from "./components/Home";
-import Hello from "./components/Home2";
-import Stock from "./components/Stock"; // Import the Stock component
+import Hello from "./components/Login";
+import Stock from "./components/Stock";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [shouldUpdateItems, setShouldUpdateItems] = useState(false);
 
   const handleItemAdded = () => {
     setShouldUpdateItems(true);
   };
 
+  const handleLogin = (username, password, navigate) => {
+    if (username === "admin" && password === "password") {
+      setIsLoggedIn(true);
+      navigate("/home");
+    } else {
+      alert("Invalid username or password");
+    }
+  };
+
+  const handleShouldUpdateItems = (value) => {
+    setShouldUpdateItems(value);
+  };
+
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Hello />} />
-        </Routes>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
+      <Routes>
+        <Route path="/" element={<Hello onLogin={handleLogin} />} />
+        {isLoggedIn && <Route path="/home" element={<Home />} />}
+        {isLoggedIn && (
           <Route
             path="/inventory"
             element={
               <ItemForm
                 onItemAdded={handleItemAdded}
-                setShouldUpdateItems={setShouldUpdateItems}
+                setShouldUpdateItems={handleShouldUpdateItems}
               />
             }
           />
-          <Route path="/home" element={<Home />} />
-          <Route path="/stock" element={<Stock />} />{" "}
-          {/* Associate /stock route with the Stock component */}
-        </Routes>
-      </div>
+        )}
+        {isLoggedIn && <Route path="/stock" element={<Stock />} />}
+        {isLoggedIn && <Route path="/dashboard" element={<Dashboard />} />}
+        {!isLoggedIn && <Route path="/*" element={<Navigate to="/" />} />}
+      </Routes>
     </Router>
   );
 }
