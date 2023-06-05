@@ -1,59 +1,71 @@
+.container-1 {
+  margin: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.form-container {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  margin-bottom: 10px;
+}
+
 .item-table {
-  border-collapse: collapse;
   width: 100%;
-  margin-top: 20px;
-  border: 2px solid green;
+  border-collapse: collapse;
 }
 
 .item-table th,
 .item-table td {
-  border: 1px solid green;
   padding: 8px;
-  text-align: left;
-  border-bottom: 1px solid green;
-  background-color: lightcoral;
-  color: white;
+  border: 1px solid #ccc;
 }
 
 .item-table th {
-  text-align: left;
+  background-color: #f0f0f0;
 }
 
-.item-table tbody tr:nth-child(even) {
-  background-color: lightblue;
-  color: white;
+.item-table button {
+  margin-right: 5px;
 }
 
-.form-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.form-row {
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.edit-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.edit-modal h2 {
   margin-bottom: 10px;
 }
 
-.form-row label {
-  margin-right: 10px;
-  flex-basis: 100px; /* Adjust the width as needed */
+.edit-modal label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.form-row input {
-  border: 1px solid green;
+.edit-modal input {
+  width: 100%;
   padding: 8px;
+  margin-bottom: 10px;
 }
 
-.form-row button {
-  background-color: lightcoral;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.container-1 {
-  padding: 2px;
-  margin: 2px;
+.edit-modal button {
+  margin-right: 5px;
 }
