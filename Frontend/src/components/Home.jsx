@@ -43,7 +43,7 @@ function Home() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container">
         <div className="image"></div>
       </div>

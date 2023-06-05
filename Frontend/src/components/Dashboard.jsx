@@ -17,7 +17,7 @@ function Dashboard() {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <h1>Dashboard</h1>
       {/* Your dashboard content */}
     </div>

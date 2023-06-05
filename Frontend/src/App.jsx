@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Navbar from "./components/Navbar";
 import ItemForm from "./components/ItemForm";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
@@ -9,6 +15,7 @@ import Stock from "./components/Stock";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [shouldUpdateItems, setShouldUpdateItems] = useState(false);
+  const [alertCount, setAlertCount] = useState(0);
 
   useEffect(() => {
     // Check if the login state is stored in localStorage
@@ -43,24 +50,47 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Hello onLogin={handleLogin} />} />
-        {isLoggedIn && <Route path="/home" element={<Home onLogout={handleLogout} />} />}
-        {isLoggedIn && (
-          <Route
-            path="/inventory"
-            element={
-              <ItemForm
-                onItemAdded={handleItemAdded}
-                setShouldUpdateItems={handleShouldUpdateItems}
-              />
-            }
-          />
-        )}
-        {isLoggedIn && <Route path="/stock" element={<Stock />} />}
-        {isLoggedIn && <Route path="/dashboard" element={<Dashboard />} />}
-        {!isLoggedIn && <Route path="/*" element={<Navigate to="/" />} />}
-      </Routes>
+      <div>
+        <Navbar alertCount={alertCount} />
+        <Routes>
+          <Route path="/" element={<Hello onLogin={handleLogin} />} />
+          {isLoggedIn && (
+            <Route
+              path="/home"
+              element={<Home onLogout={handleLogout} alertCount={alertCount} />}
+            />
+          )}
+          {isLoggedIn && (
+            <Route
+              path="/inventory"
+              element={
+                <ItemForm
+                  onItemAdded={handleItemAdded}
+                  setShouldUpdateItems={handleShouldUpdateItems}
+                />
+              }
+            />
+          )}
+          {isLoggedIn && (
+            <Route
+              path="/stock"
+              element={
+                <Stock
+                  setShouldUpdateItems={handleShouldUpdateItems}
+                  setAlertCount={setAlertCount}
+                />
+              }
+            />
+          )}
+          {isLoggedIn && (
+            <Route
+              path="/dashboard"
+              element={<Dashboard setAlertCount={setAlertCount} />}
+            />
+          )}
+          {!isLoggedIn && <Route path="/*" element={<Navigate to="/" />} />}
+        </Routes>
+      </div>
     </Router>
   );
 }

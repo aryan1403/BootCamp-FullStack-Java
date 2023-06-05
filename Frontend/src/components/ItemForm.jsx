@@ -69,7 +69,7 @@ function ItemForm() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container-1">
         <h2>Add a new Item</h2>
         <form className="form-container">

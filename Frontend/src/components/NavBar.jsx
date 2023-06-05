@@ -1,15 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function Navbar() {
+function Navbar({ alertCount }) {
   const [activeLink, setActiveLink] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = (link) => {
     setActiveLink(link);
   };
+
   const handleLogout = () => {
-    window.location.href = "/";
+    navigate("/");
   };
 
   return (
@@ -30,7 +32,6 @@ function Navbar() {
             />
           </div>
           <span className="font-weight-bold">
-            {" "}
             Takeo Inventory Management System
           </span>
         </Link>
@@ -70,19 +71,22 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className={`nav-link text-white ${
-                  activeLink === "stock" ? "active" : ""
-                }`}
-                to="/stock"
-                onClick={() => handleClick("stock")}
-              >
-                Stock Alerts
-              </Link>
+              <div className="nav-link text-white">
+                <Link
+                  className={`text-white ${
+                    activeLink === "stock" ? "active" : ""
+                  }`}
+                  to="/stock"
+                  onClick={() => handleClick("stock")}
+                >
+                  Stock Alerts
+                </Link>
+                {alertCount > 0 && (
+                  <span className="badge badge-dark ml-2">{alertCount}</span>
+                )}
+              </div>
             </li>
-            <button type="button" className="btn btn-primary">
-              Notifications <span className="badge badge-dark">4</span>
-            </button>
+
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle text-white"
