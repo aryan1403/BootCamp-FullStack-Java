@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ItemForm from "./components/ItemForm";
 import Navbar from "./components/NavBar";
 import Dashboard from "./components/Dashboard";
-// import ItemList from "./components/ItemList";
 import Stock from "./components/Stock"; // Import the Stock component
 
 function App() {
