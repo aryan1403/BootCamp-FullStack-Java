@@ -70,6 +70,7 @@ function ItemForm() {
   return (
     <>
       {/* <Navbar /> */}
+      <div className="image"></div>
       <div className="container-1">
         <h2>Add a new Item</h2>
         <form className="form-container">

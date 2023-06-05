@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./NavBar";
+import "./item.css";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function Dashboard() {
   }, [location, navigate]);
 
   return (
-    <div>
+    <div className="image">
       {/* <Navbar /> */}
       <h1>Dashboard</h1>
       {/* Your dashboard content */}

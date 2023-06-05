@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
+import "./item.css";
 
 function Stock({ setShouldUpdateItems, setAlertCount }) {
   const [items, setItems] = useState([]);
@@ -67,7 +68,7 @@ function Stock({ setShouldUpdateItems, setAlertCount }) {
 
   return (
     <>
-      <div>
+      <div className="image" style={{ paddingTop: "60px" }}>
         <h2>Stock</h2>
         {filteredItems.map((item) => (
           <div key={item.id}>

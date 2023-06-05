@@ -1,4 +1,4 @@
-.item-table {
+/* .item-table {
   border-collapse: collapse;
   width: 100%;
   margin-top: 20px;
@@ -22,7 +22,7 @@
 .item-table tbody tr:nth-child(even) {
   background-color: lightblue;
   color: white;
-}
+} */
 
 .form-container {
   display: flex;

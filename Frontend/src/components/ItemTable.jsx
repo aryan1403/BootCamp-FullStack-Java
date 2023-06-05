@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
+function ItemTable() {
+  const [items, setItems] = useState([]);
   const [editItemId, setEditItemId] = useState(null);
   const [editItemData, setEditItemData] = useState({
     id: "",
@@ -16,6 +17,28 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
     column: null,
     order: "normal",
   });
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/items");
+      setItems(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await axios.delete(`http://localhost:8080/items/${itemId}`);
+      fetchItems(); // Refresh the item list after deletion
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleEditItem = (itemId) => {
     const itemToEdit = items.find((item) => item.id === itemId);
@@ -46,7 +69,7 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
         type: "",
         quantity: "",
       });
-      onItemUpdated(); // Notify parent component that item has been updated
+      fetchItems(); // Refresh the item list after update
     } catch (error) {
       console.log(error);
     }
@@ -111,7 +134,7 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
       console.log("Item dispatched:", response.data);
       setDispatchItemId(null);
       setDispatchQuantity("");
-      onItemUpdated(); // Notify parent component that item has been updated
+      fetchItems(); // Refresh the item list after dispatch
     } catch (error) {
       console.log("Dispatch error:", error);
       console.log("Response data:", error.response.data);
@@ -143,27 +166,29 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
 
   return (
     <div>
-      <table className="item-table">
+      <table className="table table-striped item-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Type</th>
+            <th className="bg-dark text-light">ID</th>
+            <th className="bg-dark text-light">Name</th>
+            <th className="bg-dark text-light">Type</th>
             <th
               onClick={() => handleSortColumn("price")}
-              className={sortColumn.column === "price" ? sortColumn.order : ""}
+              className={`${
+                sortColumn.column === "price" ? sortColumn.order : ""
+              } bg-dark text-light`}
             >
               Price {getSortIndicator("price")}
             </th>
             <th
               onClick={() => handleSortColumn("quantity")}
-              className={
+              className={`${
                 sortColumn.column === "quantity" ? sortColumn.order : ""
-              }
+              } bg-dark text-light`}
             >
               Quantity {getSortIndicator("quantity")}
             </th>
-            <th>Action</th>
+            <th className="bg-dark text-light">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -175,16 +200,25 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
               <td>{item.price}</td>
               <td>{item.quantity}</td>
               <td>
-                <button type="button" onClick={() => onDeleteItem(item.id)}>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleDeleteItem(item.id)}
+                >
                   Delete
                 </button>
                 {editItemId !== item.id && (
-                  <button type="button" onClick={() => handleEditItem(item.id)}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => handleEditItem(item.id)}
+                  >
                     Edit
                   </button>
                 )}
                 <button
                   type="button"
+                  className="btn btn-success"
                   onClick={() => handleDispatchItem(item.id)}
                 >
                   Dispatch
@@ -199,49 +233,59 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
         <div className="edit-item-form">
           <h3>Edit Item</h3>
           <form>
-            <label htmlFor="edit-name">Name:</label>
-            <input
-              type="text"
-              id="edit-name"
-              name="name"
-              value={editItemData.name}
-              onChange={handleEditItemChange}
-            />
-
-            <label htmlFor="edit-type">Type:</label>
-            <input
-              type="text"
-              id="edit-type"
-              name="type"
-              value={editItemData.type}
-              onChange={handleEditItemChange}
-            />
-
-            <label htmlFor="edit-price">Price:</label>
-            <input
-              type="number"
-              id="edit-price"
-              name="price"
-              value={editItemData.price}
-              onChange={handleEditItemChange}
-            />
-
-            <label htmlFor="edit-quantity">Quantity:</label>
-            <input
-              type="number"
-              id="edit-quantity"
-              name="quantity"
-              value={editItemData.quantity}
-              onChange={handleEditItemChange}
-            />
-
-            <button type="button" onClick={saveEditItem}>
-              Save
-            </button>
-            <button type="button" onClick={cancelEditItem}>
-              Cancel
-            </button>
+            <div>
+              <label>ID:</label>
+              <input
+                type="text"
+                name="id"
+                value={editItemData.id}
+                onChange={handleEditItemChange}
+              />
+            </div>
+            <div>
+              <h2>Dispatch Table</h2>
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={editItemData.name}
+                onChange={handleEditItemChange}
+              />
+            </div>
+            <div>
+              <label>Price:</label>
+              <input
+                type="text"
+                name="price"
+                value={editItemData.price}
+                onChange={handleEditItemChange}
+              />
+            </div>
+            <div>
+              <label>Type:</label>
+              <input
+                type="text"
+                name="type"
+                value={editItemData.type}
+                onChange={handleEditItemChange}
+              />
+            </div>
+            <div>
+              <label>Quantity:</label>
+              <input
+                type="text"
+                name="quantity"
+                value={editItemData.quantity}
+                onChange={handleEditItemChange}
+              />
+            </div>
           </form>
+          <button type="button" onClick={saveEditItem}>
+            Save
+          </button>
+          <button type="button" onClick={cancelEditItem}>
+            Cancel
+          </button>
         </div>
       )}
 
@@ -249,30 +293,30 @@ function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
         <div className="dispatch-item-form">
           <h3>Dispatch Item</h3>
           <form>
-            <label htmlFor="dispatch-quantity">Dispatch Quantity:</label>
-            <input
-              type="number"
-              id="dispatch-quantity"
-              name="dispatchQuantity"
-              value={dispatchQuantity}
-              onChange={handleDispatchQuantityChange}
-            />
-
-            <button type="button" onClick={dispatchItem}>
-              Dispatch
-            </button>
+            <div>
+              <label>Dispatch Quantity:</label>
+              <input
+                type="text"
+                name="dispatchQuantity"
+                value={dispatchQuantity}
+                onChange={handleDispatchQuantityChange}
+              />
+            </div>
           </form>
+          <button type="button" onClick={dispatchItem}>
+            Dispatch
+          </button>
         </div>
       )}
 
-      <table className="additional-table">
+      <table className="table additional-table bg-dark">
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Order Number</th>
-            <th>Dispatch Quantity</th>
-            <th>Sale Generated</th>
+          <tr className="bg-dark">
+            <th className="bg-dark text-light">ID</th>
+            <th className="bg-dark text-light">Name</th>
+            <th className="bg-dark text-light">Order Number</th>
+            <th className="bg-dark text-light">Dispatch Quantity</th>
+            <th className="bg-dark text-light">Sale Generated</th>
           </tr>
         </thead>
         <tbody>

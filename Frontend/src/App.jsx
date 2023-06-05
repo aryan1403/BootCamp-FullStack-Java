@@ -67,6 +67,7 @@ function App() {
                 <ItemForm
                   onItemAdded={handleItemAdded}
                   setShouldUpdateItems={handleShouldUpdateItems}
+                  setAlertCount={setAlertCount}
                 />
               }
             />
