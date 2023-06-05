@@ -1,0 +1,316 @@
+import React, { useState } from "react";
+import axios from "axios";
+
+function ItemTable({ items, onDeleteItem, onEditItem, onItemUpdated }) {
+  const [editItemId, setEditItemId] = useState(null);
+  const [editItemData, setEditItemData] = useState({
+    id: "",
+    name: "",
+    price: "",
+    type: "",
+    quantity: "",
+  });
+  const [dispatchItemId, setDispatchItemId] = useState(null);
+  const [dispatchQuantity, setDispatchQuantity] = useState("");
+  const [salePrice, setSalePrice] = useState("");
+  const [sortColumn, setSortColumn] = useState({
+    column: null,
+    order: "normal",
+  });
+
+  const handleDispatchQuantityChange = (e) => {
+    setDispatchQuantity(e.target.value);
+    const itemToDispatch = items.find((item) => item.id === dispatchItemId);
+    const price = itemToDispatch.price || 0;
+    const quantity = e.target.value || 0;
+    const calculatedSalePrice = price * quantity;
+    setSalePrice(calculatedSalePrice);
+  };
+
+  const handleSortColumn = (columnName) => {
+    if (sortColumn.column === columnName) {
+      setSortColumn((prevSortColumn) => ({
+        column: prevSortColumn.column,
+        order:
+          prevSortColumn.order === "ascending"
+            ? "descending"
+            : prevSortColumn.order === "descending"
+            ? "normal"
+            : "ascending",
+      }));
+    } else {
+      setSortColumn({
+        column: columnName,
+        order: "ascending",
+      });
+    }
+  };
+
+  const getSortIndicator = (columnName) => {
+    if (sortColumn.column === columnName) {
+      if (sortColumn.order === "ascending") {
+        return "↑";
+      } else if (sortColumn.order === "descending") {
+        return "↓";
+      }
+    }
+    return null;
+  };
+
+  const handleEditItem = (itemId) => {
+    const itemToEdit = items.find((item) => item.id === itemId);
+    setEditItemId(itemId);
+    setEditItemData(itemToEdit);
+  };
+
+  const handleEditItemChange = (e) => {
+    const { name, value } = e.target;
+    setEditItemData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const saveEditItem = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/items/${editItemId}`,
+        editItemData
+      );
+      console.log("Item updated:", response.data);
+      setEditItemId(null);
+      setEditItemData({
+        id: "",
+        name: "",
+        price: "",
+        type: "",
+        quantity: "",
+      });
+      onItemUpdated();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cancelEditItem = () => {
+    setEditItemId(null);
+    setEditItemData({
+      id: "",
+      name: "",
+      price: "",
+      type: "",
+      quantity: "",
+    });
+  };
+
+  const handleDispatchItem = (itemId) => {
+    setDispatchItemId(itemId);
+    setDispatchQuantity("");
+    setSalePrice("");
+  };
+
+  const dispatchItem = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/items/${dispatchItemId}/dispatch`,
+        { dispatchQuantity }
+      );
+      console.log("Item dispatched:", response.data);
+      setDispatchItemId(null);
+      setDispatchQuantity("");
+      setSalePrice("");
+      onItemUpdated();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sortedItems = [...items]; // Create a copy of items array for sorting
+
+  if (sortColumn.column === "price") {
+    sortedItems.sort((a, b) => {
+      const priceA = parseFloat(a.price);
+      const priceB = parseFloat(b.price);
+      if (sortColumn.order === "ascending") {
+        return priceA - priceB;
+      } else if (sortColumn.order === "descending") {
+        return priceB - priceA;
+      }
+      return 0;
+    });
+  } else if (sortColumn.column === "quantity") {
+    sortedItems.sort((a, b) => {
+      const quantityA = parseInt(a.quantity);
+      const quantityB = parseInt(b.quantity);
+      if (sortColumn.order === "ascending") {
+        return quantityA - quantityB;
+      } else if (sortColumn.order === "descending") {
+        return quantityB - quantityA;
+      }
+      return 0;
+    });
+  }
+
+  return (
+    <>
+      <div className="table-container">
+        <table className="item-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th
+                onClick={() => handleSortColumn("price")}
+                className={
+                  sortColumn.column === "price" ? sortColumn.order : ""
+                }
+              >
+                Price {getSortIndicator("price")}
+              </th>
+              <th
+                onClick={() => handleSortColumn("quantity")}
+                className={
+                  sortColumn.column === "quantity" ? sortColumn.order : ""
+                }
+              >
+                Quantity {getSortIndicator("quantity")}
+              </th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedItems.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.type}</td>
+                <td>{item.price}</td>
+                <td>{item.quantity}</td>
+                <td>
+                  <button type="button" onClick={() => onDeleteItem(item.id)}>
+                    Delete
+                  </button>
+                  {editItemId !== item.id && (
+                    <button
+                      type="button"
+                      onClick={() => handleEditItem(item.id)}
+                    >
+                      Edit
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => handleDispatchItem(item.id)}
+                  >
+                    Dispatch
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {dispatchItemId && (
+        <div className="dispatch-form">
+          <h2>Dispatch Item</h2>
+          <div>
+            <label htmlFor="dispatchQuantity">Quantity:</label>
+            <input
+              type="number"
+              id="dispatchQuantity"
+              name="dispatchQuantity"
+              value={dispatchQuantity}
+              onChange={handleDispatchQuantityChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="salePrice">Sale Price:</label>
+            <input
+              type="text"
+              id="salePrice"
+              name="salePrice"
+              value={salePrice}
+              readOnly
+            />
+          </div>
+          <div>
+            <button type="button" onClick={dispatchItem}>
+              Dispatch
+            </button>
+            <button type="button" onClick={() => setDispatchItemId(null)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {editItemId && (
+        <div className="edit-form">
+          <h2>Edit Item</h2>
+          <div>
+            <label htmlFor="editId">ID:</label>
+            <input
+              type="text"
+              id="editId"
+              name="id"
+              value={editItemData.id}
+              onChange={handleEditItemChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="editName">Name:</label>
+            <input
+              type="text"
+              id="editName"
+              name="name"
+              value={editItemData.name}
+              onChange={handleEditItemChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="editPrice">Price:</label>
+            <input
+              type="text"
+              id="editPrice"
+              name="price"
+              value={editItemData.price}
+              onChange={handleEditItemChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="editType">Type:</label>
+            <input
+              type="text"
+              id="editType"
+              name="type"
+              value={editItemData.type}
+              onChange={handleEditItemChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="editQuantity">Quantity:</label>
+            <input
+              type="text"
+              id="editQuantity"
+              name="quantity"
+              value={editItemData.quantity}
+              onChange={handleEditItemChange}
+            />
+          </div>
+          <div>
+            <button type="button" onClick={saveEditItem}>
+              Save
+            </button>
+            <button type="button" onClick={cancelEditItem}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export default ItemTable;

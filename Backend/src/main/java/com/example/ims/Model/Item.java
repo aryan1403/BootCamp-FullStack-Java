@@ -1,20 +1,27 @@
 package com.example.ims.Model;
 
-
 public class Item {
     private String id;
     private String name;
     private double price;
+    private String type;
     private int quantity;
+    private int dispatchQuantity;
+    private String OrderNumber;
+    private double saleGenerated;
 
     public Item() {
     }
 
-    public Item(String id, String name, double price, int quantity) {
+    public Item(String id, String name, double price, String type, int quantity, int dispatchQuantity, double saleGenerated, String OrderNumber) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.type = type;
         this.quantity = quantity;
+        this.dispatchQuantity = dispatchQuantity;
+        this.saleGenerated = saleGenerated;
+        this.OrderNumber = OrderNumber;
     }
 
     public String getId() {
@@ -41,6 +48,14 @@ public class Item {
         this.price = price;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -49,7 +64,27 @@ public class Item {
         this.quantity = quantity;
     }
 
-    
-    
-}
+    public int getDispatchQuantity() {
+        return dispatchQuantity;
+    }
 
+    public void setDispatchQuantity(int dispatchQuantity) {
+        this.dispatchQuantity = dispatchQuantity;
+    }
+
+    public String getOrderNumber() {
+        return OrderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        OrderNumber = orderNumber;
+    }
+
+    public double getSaleGenerated() {
+        return saleGenerated;
+    }
+
+    public void setSaleGenerated(double saleGenerated) {
+        this.saleGenerated = saleGenerated;
+    }
+}

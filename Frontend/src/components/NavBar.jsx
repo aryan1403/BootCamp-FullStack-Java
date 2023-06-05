@@ -4,27 +4,35 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Navbar() {
   const [activeLink, setActiveLink] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleClick = (link) => {
     setActiveLink(link);
   };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // Perform search functionality with the searchQuery
-    console.log("Search Query:", searchQuery);
+  const handleLogout = () => {
+    window.location.href = "/";
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container-fluid">
-        <Link className="navbar-brand text-white" to="/">
-          Inventory Management System
+      <div className="container">
+        <Link
+          className="navbar-brand d-flex align-items-center text-white"
+          to="/inventory"
+        >
+          <div
+            className="rounded-circle overflow-hidden me-2"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <img
+              src="https://th.bing.com/th/id/OIP.vjUPZjUMWLO_0wF71LTd7AHaHT?pid=ImgDet&rs=1"
+              className="w-100 h-auto"
+              alt="Flowbite Logo"
+            />
+          </div>
+          <span className="font-weight-bold">
+            {" "}
+            Takeo Inventory Management System
+          </span>
         </Link>
         <button
           className="navbar-toggler"
@@ -72,20 +80,43 @@ function Navbar() {
                 Stock Alerts
               </Link>
             </li>
-          </ul>
-          <form className="d-flex" onSubmit={handleSearchSubmit}>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            <button className="btn btn-outline-light" type="submit">
-              Search
+            <button type="button" className="btn btn-primary">
+              Notifications <span className="badge badge-dark">4</span>
             </button>
-          </form>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle text-white"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://www.pngitem.com/pimgs/m/79-791921_male-profile-round-circle-users-profile-round-icon.png"
+                  alt="User Avatar"
+                  className="user-avatar"
+                  style={{ width: "30px", height: "30px" }}
+                />
+              </a>
+
+              <div
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a className="dropdown-item" href="#">
+                  Settings
+                </a>
+                <a className="dropdown-item" onClick={handleLogout} href="#">
+                  Logout
+                </a>
+                <a className="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
