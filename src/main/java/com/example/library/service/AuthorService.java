@@ -39,6 +39,8 @@ public class AuthorService {
     }
 
     public Author searchAuthors(String name) {
-        return authorRepository.findByName(name);
+        // logic
+        return authorRepository.findAll().stream().filter(e -> e.getName().equals(name)).toList().get(0);
+        // return authorRepository.findByName(name);
     }
 }

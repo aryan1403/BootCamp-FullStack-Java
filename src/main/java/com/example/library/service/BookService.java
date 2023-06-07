@@ -39,6 +39,7 @@ public class BookService {
     }
 
     public Book searchBooks(String title) {
-        return bookRepository.findByTitle(title);
+        return bookRepository.findAll().stream().filter(e -> e.getTitle().equals(title)).findFirst().get();
+        // return bookRepository.findByTitle(title);
     }
 }

@@ -6,13 +6,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.library.model.Transaction;
-@Repository
 public interface TransactionRepository extends MongoRepository<Transaction, String>  {
-    Transaction findByBorrowerId(String borrowerId);
+    /* Transaction findByBorrowerId(String borrowerId);
     
     Transaction findByBookId(String bookId);
     
-    List<Transaction> findByDate(String Date);
+    List<Transaction> findByDate(String Date); */
 
     
 }

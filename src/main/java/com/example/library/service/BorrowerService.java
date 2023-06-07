@@ -39,6 +39,7 @@ public class BorrowerService {
     }
 
     public Borrower searchBorrowers(String name) {
-        return borrowerRepository.findByName(name);
+        return borrowerRepository.findAll().stream().filter(e -> e.getName().equals(name)).findFirst().get();
+        // return borrowerRepository.findByName(name);
     }
 }
